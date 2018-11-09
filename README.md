@@ -45,6 +45,11 @@ kops create cluster \
 kops update cluster ${CLUSTER_FULL_NAME} --yes
 ```
 
+### Delete the cluster
+
+```
+kops delete cluster ${CLUSTER_FULL_NAME} --yes
+```
 
 
 
