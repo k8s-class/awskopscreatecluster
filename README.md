@@ -39,6 +39,11 @@ kops create cluster \
     
 ```
 
+### Deploy the cluster
+
+```
+kops update cluster ${CLUSTER_FULL_NAME} --yes
+```
 
 
 
