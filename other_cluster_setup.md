@@ -1,5 +1,4 @@
 ```
-
 kops create cluster \
                 --name=${CLUSTER_FULL_NAME} \
                 --zones=${CLUSTER_AWS_AZ} \
