@@ -83,7 +83,7 @@ cd nginx-ingress
 cd basicwebapp/templates
 kubectl apply -f .
 
-sleep 5m
+sleep 30m
 
 ELB=$(kubectl get services --all-namespaces | grep LoadBalancer | awk '{print $5}')
 export ELB
@@ -104,6 +104,16 @@ aws route53 change-resource-record-sets --hosted-zone-id Z1VROVT3ELLEHX \
 
 
 sleep 15m
+
+# Open up port 8089 for Cert-Manager
+
+export INSTANCE=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=nodes.code.ghettolabs.io" | grep InstanceId | awk '{print $2}' | cut -d'"' -f2 | awk '{print $1}' | head -1)
+
+export SECURITYGROUP=$(aws ec2 describe-instance-attribute --instance-id $INSTANCE --attribute groupSet | jq .Groups | jq ".[] | .GroupId" | cut -d'"' -f2)
+
+aws ec2 authorize-security-group-ingress --group-id $SECURITYGROUP --protocol tcp --port 8089 --cidr 0.0.0.0/0
+
+
 
 curl https://helloworld-v1.ghettolabs.io
 
