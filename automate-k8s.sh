@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# This script was created with Ubuntu 18.04. In order to use this script you will need to export your AWS keys and install the 
-# awscli. This script also requires curl, wget and jq
-
 if ! [ -x "$(command -v kops)" ]; then
   echo 'Error: kops is not installed.' >&2
   echo 'Installing Kops'
@@ -66,7 +63,7 @@ sleep 20m
 kubectl create -f https://raw.githubusercontent.com/k8s-class/helm/master/helm-rbac.yaml
 helm init --service-account tiller
 
-sleep 15m
+sleep 5m
 
 # Setup nginx ingress controller and cert-manager
 
@@ -77,25 +74,28 @@ helm install \
     --namespace kube-system \
     stable/cert-manager
 
-sleep 10m
+sleep 5m
 
-# Setup basic app - "This is my actual code"
+# Setup demo app
 
-git clone https://github.com/k8s-class/nginx-ingress.git
-cd nginx-ingress
-cd basicwebapp/templates
+helm repo add azure-samples https://azure-samples.github.io/helm-charts/
+helm install azure-samples/aks-helloworld
+
+git clone https://github.com/k8s-class/demo.git
+cd demo
 kubectl apply -f .
 
-sleep 30m
+
+sleep 10m
 
 ELB=$(kubectl get services --all-namespaces | grep LoadBalancer | awk '{print $5}')
 export ELB
 MYIP=$(ping -c1 $ELB | sed -nE 's/^PING[^(]+\(([^)]+)\).*/\1/p')
 export MYIP
-curl -k https://$ELB -H "Host: helloworld-v1.ghettolabs.io"
+curl -k https://$ELB -H "Host: demo.ghettolabs.io"
 
 
-ENV=helloworld-v1
+ENV=demo
 
 # Creates route 53 records based on env name
 
@@ -106,7 +106,7 @@ aws route53 change-resource-record-sets --hosted-zone-id Z1VROVT3ELLEHX \
 120, "ResourceRecords": [ { "Value": "'"$MYIP"'" } ] } } ] }'
 
 
-sleep 15m
+sleep 5m
 
 # Open up port 8089 for Cert-Manager
 
@@ -118,6 +118,5 @@ aws ec2 authorize-security-group-ingress --group-id $SECURITYGROUP --protocol tc
 
 
 
-curl https://helloworld-v1.ghettolabs.io
 
 
