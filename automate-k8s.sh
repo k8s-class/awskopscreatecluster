@@ -7,6 +7,7 @@
 # You will need to change a few things to get it running in your account like DNS zone and domain name.
 # The ingress yaml file will also need to be changed to your host.domain along with a few other yaml files.
 # This script does a DNS entry and creates an SSL/TLS cert with letsencrypt.
+# The demo app is from azure sample apps and deployed with helm.
 
 
 
