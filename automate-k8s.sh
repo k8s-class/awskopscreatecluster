@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script was created with Ubuntu 18.04. In order to use this script you will need to export your AWS keys and install the 
+# awscli. This script also requires curl, wget and jq
+
 if ! [ -x "$(command -v kops)" ]; then
   echo 'Error: kops is not installed.' >&2
   echo 'Installing Kops'
