@@ -83,7 +83,7 @@ cd nginx-ingress
 cd basicwebapp/templates
 kubectl apply -f .
 
-sleep 30m
+sleep 5m
 
 ELB=$(kubectl get services --all-namespaces | grep LoadBalancer | awk '{print $5}')
 export ELB
