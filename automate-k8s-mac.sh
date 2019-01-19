@@ -10,7 +10,7 @@
 # This script does a DNS entry and creates an SSL/TLS cert with letsencrypt.
 # The demo app is from azure sample apps and deployed with helm.
 # Removed the aws command line option to add port 8089. cert-manager does not need it.
-# you can delete the cluster with this command kops delete cluster code.ghettolabs.io --state s3://code.ghettolabs.io-state --yes
+# you can delete the cluster with this command -  kops delete cluster code.ghettolabs.io --state s3://code.ghettolabs.io-state --yes
 
 
 
