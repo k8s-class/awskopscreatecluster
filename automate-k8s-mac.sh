@@ -1,7 +1,8 @@
 #!/bin/bash
 
 
-# This script was created with ubuntu 18.04.
+# This script was created on a mac book pro running high sierra.
+# This requires brew to be installed or just make sure you have kubectl, helm, kops, wget, jq, and curl installed
 # Please setup your awscli and export your keys before running script.
 # Make sure you install curl, wget, and jq
 # You will need to change a few things to get it running in your account like DNS zone and domain name.
