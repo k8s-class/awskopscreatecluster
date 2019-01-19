@@ -9,6 +9,7 @@
 # The ingress yaml file will also need to be changed to your host.domain along with a few other yaml files.
 # This script does a DNS entry and creates an SSL/TLS cert with letsencrypt.
 # The demo app is from azure sample apps and deployed with helm.
+# Removed the aws command line option to add port 8089. cert-manager does not need it.
 
 
 
